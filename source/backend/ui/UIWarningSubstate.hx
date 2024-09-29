@@ -9,8 +9,6 @@ class UIWarningSubstate extends SubStateExt {
 	var titleSpr:UIText;
 	var messageSpr:UIText;
 
-	var warnCam:FlxCamera;
-
 	public override function onSubstateOpen() {
 		super.onSubstateOpen();
 		parent.persistentUpdate = false;
@@ -18,12 +16,6 @@ class UIWarningSubstate extends SubStateExt {
 	}
 
 	public override function create() {
-		camera = warnCam = new FlxCamera();
-		warnCam.bgColor = 0;
-		warnCam.alpha = 0;
-		warnCam.zoom = 0.1;
-		FlxG.cameras.add(warnCam, false);
-
 		var spr = new UISliceSprite(0, 0, CoolUtil.maxInt(560, 30 + (170 * buttons.length)), 232, 'editors/ui/${isError ? "normal" : "grayscale"}-popup');
 		spr.x = (FlxG.width - spr.bWidth) / 2;
 		spr.y = (FlxG.height - spr.bHeight) / 2;
@@ -53,16 +45,6 @@ class UIWarningSubstate extends SubStateExt {
 			}
 			add(button);
 		}
-
-		FlxTween.tween(camera, {alpha: 1}, 0.25, {ease: FlxEase.cubeOut});
-		FlxTween.tween(camera, {zoom: 1}, 0.66, {ease: FlxEase.elasticOut});
-	}
-
-	public override function destroy() {
-		super.destroy();
-
-		FlxTween.cancelTweensOf(warnCam);
-		FlxG.cameras.remove(warnCam);
 	}
 
 	public function new(title:String, message:String, buttons:Array<WarningButton>, ?isError:Bool = true) {
