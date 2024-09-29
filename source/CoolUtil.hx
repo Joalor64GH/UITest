@@ -10,4 +10,8 @@ class CoolUtil {
 
     public static inline function maxInt(p1:Int, p2:Int)
 		return p1 < p2 ? p2 : p1;
+
+	public static inline function getDefault<T>(v:Null<T>, defaultValue:T):T {
+		return (v == null || isNaN(v)) ? defaultValue : v;
+	}
 }
