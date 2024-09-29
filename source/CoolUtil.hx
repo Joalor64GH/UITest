@@ -14,4 +14,10 @@ class CoolUtil {
 	public static inline function getDefault<T>(v:Null<T>, defaultValue:T):T {
 		return (v == null || isNaN(v)) ? defaultValue : v;
 	}
+
+	public static inline function isNaN(v:Dynamic) {
+		if (v is Float || v is Int)
+			return Math.isNaN(cast(v, Float));
+		return false;
+	}
 }
