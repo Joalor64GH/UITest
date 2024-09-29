@@ -122,7 +122,7 @@ class Paths {
 
 		var graph:FlxGraphic = null;
 		try {
-			graph = FlxG.bitmap.add(hasNoEx, Unique, Key);
+			graph = FlxG.bitmap.add(noExt, Unique, Key);
 		} catch (e:haxe.Exception) {
 			trace(e.message);
 			return null;
