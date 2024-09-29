@@ -1,4 +1,7 @@
-import backend.ui.UIContextMenu.UIContextMenuOption;
-import backend.ui.UIContextMenu.UIContextMenuCallback;
-import backend.ui.UIContextMenu.UIContextMenuOptionSpr;
-import backend.ui.UIUtil;
+#if !macro
+package backend.ui;
+
+import backend.ui.*;
+
+using backend.ui.UIUtil;
+#end
