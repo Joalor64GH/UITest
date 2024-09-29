@@ -104,14 +104,14 @@ class Paths {
 		var noSecond:String = path[1];
 
 		if (FileSystem.exists('$notExts/1.png')) {
-			Debug.logInfo('multiple sprite sheets on $notExts.');
+			trace('multiple sprite sheets on $notExts.');
 
 			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$notExts/mult');
 			var frames = MultiFramesCollection.findFrame(graphic);
 			if (frames != null)
 				return frames;
 
-			Debug.logInfo("no frames yet for multiple atlases!!");
+			trace("no frames yet for multiple atlases!!");
 			var cur = 1;
 			var finalFrames = new MultiFramesCollection(graphic);
 			while (FileSystem.exists('$notExts/$cur.png')) {
@@ -121,8 +121,7 @@ class Paths {
 			}
 			return finalFrames;
 		} else if (FileSystem.exists('$noExt/1.png')) {
-			Debug.logInfo('multiple sprite sheets on $noExt.');
-			// MULTIPLE SPRITESHEETS!!
+			trace('multiple sprite sheets on $noExt.');
 
 			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$noExt/mult');
 			var frames = MultiFramesCollection.findFrame(graphic);
@@ -139,7 +138,7 @@ class Paths {
 			}
 			return finalFrames;
 		} else if (FileSystem.exists('$hasNoEx/1.png')) {
-			Debug.logInfo('multiple sprite sheets on $hasNoEx.');
+			trace('multiple sprite sheets on $hasNoEx.');
 			// MULTIPLE SPRITESHEETS!!
 
 			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$hasNoEx/mult');
@@ -147,7 +146,7 @@ class Paths {
 			if (frames != null)
 				return frames;
 
-			Debug.logInfo("no frames yet for multiple atlases!!");
+			trace("no frames yet for multiple atlases!!");
 			var cur = 1;
 			var finalFrames = new MultiFramesCollection(graphic);
 			while (FileSystem.exists('$hasNoEx/$cur.png')) {
@@ -162,6 +161,7 @@ class Paths {
 			return Paths.getPackerAtlasAlt(noExt);
 		} else if (FileSystem.exists('$noExt.json')) {
 			return Paths.getAsepriteAtlasAlt(noExt);
+		}
 
 		var graph:FlxGraphic = null;
 		try {
