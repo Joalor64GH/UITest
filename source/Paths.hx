@@ -120,13 +120,7 @@ class Paths {
 			return Paths.getAsepriteAtlasAlt(noExt);
 		}
 
-		var graph:FlxGraphic = null;
-		try {
-			graph = FlxG.bitmap.add(noExt, Unique, Key);
-		} catch (e:haxe.Exception) {
-			trace(e.message);
-			return null;
-		}
-		return graph.imageFrame;
+		var graph:FlxGraphic = FlxG.bitmap.add(noExt, Unique, Key);
+		return (graph != null) ? graph.imageFrame : null;
 	}
 }
