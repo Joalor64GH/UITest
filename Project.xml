@@ -3,7 +3,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="HaxeFlixel Template" file="Template" main="Main" version="1.0.0" company="Joalor64GH" />
+	<app title="Codename UI Testing" file="UITest" main="Main" version="1.0.0" company="Joalor64" />
 	<app preloader="flixel.system.FlxPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
@@ -29,20 +29,14 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<source path="source" />
-
-	<assets path="assets/fonts" embed='true'/>
-	<assets path="assets/" rename="assets" exclude="*.mp3"/>
+	<assets path="assets" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
-
-	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
-	
-	<!--In case you want to use the ui package-->
-	<haxelib name="flixel-ui" />
-	<haxelib name="flixel-tools" />
+	<haxelib name="hscript" />
+	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
