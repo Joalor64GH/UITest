@@ -12,7 +12,7 @@ class UISliceSprite extends UISprite {
 	public function new(x:Float, y:Float, w:Int, h:Int, path:String) {
 		super(x, y);
 
-		frames = Paths.getFrames(path);
+		frames = Paths.getSparrowAtlas(path);
 		resize(w, h);
 	}
 
