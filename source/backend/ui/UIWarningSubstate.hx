@@ -42,13 +42,15 @@ class UIWarningSubstate extends SubStateExt {
 		add(messageSpr = new UIText(sprIcon.x + 70 + 16 + 20, sprIcon.y + 16, spr.bWidth - 100 - (26 * 2), message));
 
 		var xPos = (FlxG.width - (30 + (170 * buttons.length))) / 2;
-		for(k=>b in buttons) {
+		for (k => b in buttons) {
 			var button = new UIButton(xPos + 20 + (170 * k), spr.y + spr.bHeight - (36 + 16), b.label, function() {
 				b.onClick(this);
 				close();
 			}, 160, 30);
-			button.frames = Paths.getFrames("editors/ui/grayscale-button");
-			button.color = b.color;
+			if (b.color != null) {
+				button.frames = Paths.getFrames("editors/ui/grayscale-button");
+				button.color = b.color;
+			}
 			add(button);
 		}
 
