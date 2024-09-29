@@ -95,33 +95,9 @@ class Paths {
 	}
 
 	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {
-		var notExts:String = switch (Path.extension(path).toLowerCase()) {
-			case "png": file(path.substring(0, path.length - 4));
-			default: path;
-		}
-		var noExt:String = Path.withoutExtension(file(path));
-		var hasNoEx:String = Path.withoutExtension(path);
+		var noExt = Path.withoutExtension(path);
 
-		if (FileSystem.exists('$notExts/1.png')) {
-			trace('multiple sprite sheets on $notExts.');
-
-			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$notExts/mult');
-			var frames = MultiFramesCollection.findFrame(graphic);
-			if (frames != null)
-				return frames;
-
-			trace("no frames yet for multiple atlases!!");
-			var cur = 1;
-			var finalFrames = new MultiFramesCollection(graphic);
-			while (FileSystem.exists('$notExts/$cur.png')) {
-				var spr = loadFrames('$notExts/$cur.png');
-				finalFrames.addFrames(spr);
-				cur++;
-			}
-			return finalFrames;
-		} else if (FileSystem.exists('$noExt/1.png')) {
-			trace('multiple sprite sheets on $noExt.');
-
+		if (FileSystem.exists('$noExt/1.png')) {
 			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$noExt/mult');
 			var frames = MultiFramesCollection.findFrame(graphic);
 			if (frames != null)
@@ -132,23 +108,6 @@ class Paths {
 			var finalFrames = new MultiFramesCollection(graphic);
 			while (FileSystem.exists('$noExt/$cur.png')) {
 				var spr = loadFrames('$noExt/$cur.png');
-				finalFrames.addFrames(spr);
-				cur++;
-			}
-			return finalFrames;
-		} else if (FileSystem.exists('$hasNoEx/1.png')) {
-			trace('multiple sprite sheets on $hasNoEx.');
-
-			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$hasNoEx/mult');
-			var frames = MultiFramesCollection.findFrame(graphic);
-			if (frames != null)
-				return frames;
-
-			trace("no frames yet for multiple atlases!!");
-			var cur = 1;
-			var finalFrames = new MultiFramesCollection(graphic);
-			while (FileSystem.exists('$hasNoEx/$cur.png')) {
-				var spr = loadFrames('$hasNoEx/$cur.png');
 				finalFrames.addFrames(spr);
 				cur++;
 			}
