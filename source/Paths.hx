@@ -99,7 +99,7 @@ class Paths {
 			case "png": file(path.substring(0, path.length - 4));
 			default: path;
 		}
-		var noExt:String = Path.withoutExtension(getPath(path));
+		var noExt:String = Path.withoutExtension(file(path));
 		var hasNoEx:String = Path.withoutExtension(path);
 
 		if (FileSystem.exists('$notExts/1.png')) {
