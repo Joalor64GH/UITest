@@ -4,79 +4,64 @@ package;
 import sys.FileSystem;
 import sys.io.File;
 #end
-
 import haxe.io.Path;
-
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFramesCollection;
 
-class Paths
-{
+class Paths {
 	public static var tempFramesCache:Map<String, FlxFramesCollection> = [];
 
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
-	static public function getPath(folder:Null<String>, file:String)
-	{
+	static public function getPath(folder:Null<String>, file:String) {
 		if (folder == null)
 			folder = DEFAULT_FOLDER;
 		return folder + '/' + file;
 	}
 
-	static public function file(file:String, folder:String = DEFAULT_FOLDER)
-	{
-		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER))
-		{
+	static public function file(file:String, folder:String = DEFAULT_FOLDER) {
+		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER)) {
 			return getPath(folder, file);
 		}
 		return getPath(null, file);
 	}
 
-	inline static public function txt(key:String)
-	{
+	inline static public function txt(key:String) {
 		return file('data/$key.txt');
 	}
 
-	inline static public function xml(key:String)
-	{
+	inline static public function xml(key:String) {
 		return file('data/$key.xml');
 	}
 
-	inline static public function json(key:String)
-	{
+	inline static public function json(key:String) {
 		return file('data/$key.json');
 	}
 
 	#if yaml
-	inline static public function yaml(key:String)
-	{
+	inline static public function yaml(key:String) {
 		return file('data/$key.yaml');
 	}
 	#end
 
-	inline static public function sound(key:String)
-	{
+	inline static public function sound(key:String) {
 		return file('sounds/$key.ogg');
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int)
-	{
+	inline static public function soundRandom(key:String, min:Int, max:Int) {
 		return file('sounds/$key${FlxG.random.int(min, max)}.ogg');
 	}
 
-	inline static public function music(key:String)
-	{
+	inline static public function music(key:String) {
 		return file('music/$key.ogg');
 	}
 
-	inline static public function image(key:String)
-	{
+	inline static public function image(key:String) {
 		return file('images/$key.png');
 	}
 
-	inline static public function font(key:String)
-	{
+	inline static public function font(key:String) {
 		return file('fonts/$key');
 	}
 
@@ -110,9 +95,33 @@ class Paths
 	}
 
 	static function loadFrames(path:String, Unique:Bool = false, Key:String = null, SkipAtlasCheck:Bool = false):FlxFramesCollection {
-		var noExt = Path.withoutExtension(path);
+		var notExts:String = switch (Path.extension(path[0]).toLowerCase()) {
+			case "png": file(path[0].substring(0, path[0].length - 4));
+			default: path[0];
+		}
+		var noExt:String = Path.withoutExtension(getPath(path[0]));
+		var hasNoEx:String = Path.withoutExtension(path[0]);
+		var noSecond:String = path[1];
 
-		if (Assets.exists('$noExt/1.png')) {
+		if (FileSystem.exists('$notExts/1.png')) {
+			Debug.logInfo('multiple sprite sheets on $notExts.');
+
+			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$notExts/mult');
+			var frames = MultiFramesCollection.findFrame(graphic);
+			if (frames != null)
+				return frames;
+
+			Debug.logInfo("no frames yet for multiple atlases!!");
+			var cur = 1;
+			var finalFrames = new MultiFramesCollection(graphic);
+			while (FileSystem.exists('$notExts/$cur.png')) {
+				var spr = loadFrames(['$notExts/$cur.png']);
+				finalFrames.addFrames(spr);
+				cur++;
+			}
+			return finalFrames;
+		} else if (FileSystem.exists('$noExt/1.png')) {
+			Debug.logInfo('multiple sprite sheets on $noExt.');
 			// MULTIPLE SPRITESHEETS!!
 
 			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$noExt/mult');
@@ -123,23 +132,44 @@ class Paths
 			trace("no frames yet for multiple atlases!!");
 			var cur = 1;
 			var finalFrames = new MultiFramesCollection(graphic);
-			while(Assets.exists('$noExt/$cur.png')) {
-				var spr = loadFrames('$noExt/$cur.png');
+			while (FileSystem.exists('$noExt/$cur.png')) {
+				var spr = loadFrames(['$noExt/$cur.png']);
 				finalFrames.addFrames(spr);
 				cur++;
 			}
 			return finalFrames;
-		} else if (Assets.exists('$noExt.xml')) {
-			return Paths.getSparrowAtlasAlt(noExt);
-		} else if (Assets.exists('$noExt.txt')) {
-			return Paths.getPackerAtlasAlt(noExt);
-		} else if (Assets.exists('$noExt.json')) {
-			return Paths.getAsepriteAtlasAlt(noExt);
-		}
+		} else if (FileSystem.exists('$hasNoEx/1.png')) {
+			Debug.logInfo('multiple sprite sheets on $hasNoEx.');
+			// MULTIPLE SPRITESHEETS!!
 
-		var graph:FlxGraphic = FlxG.bitmap.add(path, Unique, Key);
-		if (graph == null)
+			var graphic = FlxG.bitmap.add("flixel/images/logo/default.png", false, '$hasNoEx/mult');
+			var frames = MultiFramesCollection.findFrame(graphic);
+			if (frames != null)
+				return frames;
+
+			Debug.logInfo("no frames yet for multiple atlases!!");
+			var cur = 1;
+			var finalFrames = new MultiFramesCollection(graphic);
+			while (FileSystem.exists('$hasNoEx/$cur.png')) {
+				var spr = loadFrames(['$hasNoEx/$cur.png']);
+				finalFrames.addFrames(spr);
+				cur++;
+			}
+			return finalFrames;
+		} else if (FileSystem.exists('$noExt.xml')) {
+			return Paths.getSparrowAtlasAlt(noExt);
+		} else if (FileSystem.exists('$noExt.txt')) {
+			return Paths.getPackerAtlasAlt(noExt);
+		} else if (FileSystem.exists('$noExt.json')) {
+			return Paths.getAsepriteAtlasAlt(noExt);
+
+		var graph:FlxGraphic = null;
+		try {
+			graph = FlxG.bitmap.add(hasNoEx, Unique, Key);
+		} catch (e:haxe.Exception) {
+			trace(e.message);
 			return null;
+		}
 		return graph.imageFrame;
 	}
 }
