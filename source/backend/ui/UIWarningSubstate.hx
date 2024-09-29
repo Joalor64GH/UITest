@@ -1,6 +1,6 @@
 package backend.ui;
 
-class UIWarningSubstate extends FlxSubState {
+class UIWarningSubstate extends SubStateExt {
 	var title:String;
 	var message:String;
 	var buttons:Array<WarningButton>;

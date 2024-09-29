@@ -1,4 +1,4 @@
-package;
+package backend;
 
 class SubStateExt extends FlxSubState {
     public var parent:FlxState;
