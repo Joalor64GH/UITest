@@ -12,7 +12,7 @@ class UISliceSprite extends UISprite {
 	public function new(x:Float, y:Float, w:Int, h:Int, path:String) {
 		super(x, y);
 
-		frames = Paths.getSparrowAtlas(path);
+		frames = Paths.getFrames(path);
 		resize(w, h);
 	}
 
@@ -39,15 +39,15 @@ class UISliceSprite extends UISprite {
 		var y:Float = this.y;
 
 		if (visible && !(bWidth == 0 || bHeight == 0)) {
-			var topleft:FlxFrame = frames.frames[0];
-			var top:FlxFrame = frames.frames[1];
-			var topright:FlxFrame = frames.frames[2];
-			var middleleft:FlxFrame = frames.frames[3];
-			var middle:FlxFrame = frames.frames[4];
-			var middleright:FlxFrame = frames.frames[5];
-			var bottomleft:FlxFrame = frames.frames[6];
-			var bottom:FlxFrame = frames.frames[7];
-			var bottomright:FlxFrame = frames.frames[8];
+			var topleft:FlxFrame = frames.frames[framesOffset];
+			var top:FlxFrame = frames.frames[framesOffset + 1];
+			var topright:FlxFrame = frames.frames[framesOffset + 2];
+			var middleleft:FlxFrame = frames.frames[framesOffset + 3];
+			var middle:FlxFrame = frames.frames[framesOffset + 4];
+			var middleright:FlxFrame = frames.frames[framesOffset + 5];
+			var bottomleft:FlxFrame = frames.frames[framesOffset + 6];
+			var bottom:FlxFrame = frames.frames[framesOffset + 7];
+			var bottomright:FlxFrame = frames.frames[framesOffset + 8];
 
 			// TOP
 			if (drawTop) {

@@ -48,7 +48,7 @@ class UIWarningSubstate extends SubStateExt {
 				close();
 			}, 160, 30);
 			if (b.color != null) {
-				button.frames = Paths.getSparrowAtlas("editors/ui/grayscale-button");
+				button.frames = Paths.getFrames("editors/ui/grayscale-button");
 				button.color = b.color;
 			}
 			add(button);
