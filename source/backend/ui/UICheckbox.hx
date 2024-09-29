@@ -57,8 +57,6 @@ class UICheckbox extends UISprite {
 			checked = !checked;
 			check.scale.set(1.25, 1.25);
 
-			if (Options.editorSFX)
-				CoolUtil.playMenuSFX(checked ? CHECKED : UNCHECKED, 0.5);
 			if (onChecked != null)
 				onChecked(checked);
 		}

@@ -3,7 +3,7 @@ package backend.ui;
 import flixel.util.typeLimit.OneOfTwo;
 import flixel.input.keyboard.FlxKey;
 
-class UIContextMenu extends FlxSubState {
+class UIContextMenu extends SubStateExt {
 	public var options:Array<UIContextMenuOption>;
 	var x:Float;
 	var y:Float;
@@ -160,7 +160,7 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 				var textKeys:Array<String> = [];
 				for (o in option.keybinds[0]) {
 					if (Std.int(o) > 0) {
-						textKeys.push(o.toUIString());
+						textKeys.push(o.toString());
 					}
 				}
 				textKeys.join("+");

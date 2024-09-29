@@ -6,7 +6,7 @@ class PlayState extends UIState {
 
 		FlxG.mouse.useSystemCursor = FlxG.mouse.visible = true;
 
-		var bg = new FlxSprite().makeSolid(FlxG.width, FlxG.height, 0xFF444444);
+		var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xFF444444);
 		bg.updateHitbox();
 		bg.scrollFactor.set();
 		add(bg);

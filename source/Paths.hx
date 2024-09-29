@@ -5,6 +5,9 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+import haxe.io.Path;
+
+import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFramesCollection;
 
