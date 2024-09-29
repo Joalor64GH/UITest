@@ -7,6 +7,9 @@ import flixel.math.FlxPoint;
 import openfl.ui.MouseCursor;
 import flixel.math.FlxRect;
 
+import backend.ui.UIContextMenu.UIContextMenuOption;
+import backend.ui.UIContextMenu.UIContextMenuCallback;
+
 class UIState extends FlxState {
 	public var curContextMenu:UIContextMenu = null;
 

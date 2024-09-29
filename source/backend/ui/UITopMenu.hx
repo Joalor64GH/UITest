@@ -1,5 +1,7 @@
 package backend.ui;
 
+import backend.ui.UIContextMenu.UIContextMenuOption;
+
 class UITopMenu extends UISliceSprite {
 	var options:Array<UIContextMenuOption>;
 	public function new(options:Array<UIContextMenuOption>) {

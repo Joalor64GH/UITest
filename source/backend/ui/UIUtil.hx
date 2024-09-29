@@ -1,6 +1,7 @@
 package backend.ui;
 
 import flixel.input.keyboard.FlxKey;
+import backend.ui.UIContextMenu.UIContextMenuOption;
 
 class UIUtil {
 	public static function follow(spr:FlxSprite, target:FlxSprite, x:Float = 0, y:Float = 0) {
