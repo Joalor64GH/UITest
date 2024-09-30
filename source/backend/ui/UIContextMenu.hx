@@ -15,6 +15,9 @@ class UIContextMenu extends SubStateExt {
 	public var contextMenuOptions:Array<UIContextMenuOptionSpr> = [];
 	public var separators:Array<FlxSprite> = [];
 
+	var scroll:Float = 0.0;
+	var flipped:Bool = false;
+
 	private var __oobDeletion:Bool = true;
 
 	public inline function preventOutOfBoxClickDeletion() {
@@ -75,7 +78,8 @@ class UIContextMenu extends SubStateExt {
 		bg.bWidth = maxW + 8;
 		bg.bHeight = Std.int(lastY - bg.y + 4);
 
-		if (bg.y + bg.bHeight > FlxG.height) {
+		if (bg.y + bg.bHeight > FlxG.height && bg.y > FlxG.height*0.5) {
+			flipped = true;
 			bg.y -= bg.bHeight;
 			for(o in contextMenuOptions)
 				o.y -= bg.bHeight;
@@ -102,7 +106,10 @@ class UIContextMenu extends SubStateExt {
 
 		super.update(elapsed);
 
-		contextCam.scroll.y = CoolUtil.fpsLerp(contextCam.scroll.y, 0, 0.5);
+		if (FlxG.mouse.wheel != 0.0)
+			scroll = FlxMath.bound(scroll + (FlxG.mouse.wheel * -20.0), !flipped ? 0.0 : -Math.max(bg.bHeight - FlxG.height*0.5, 0.0), flipped ? 0.0 : Math.max(bg.bHeight - FlxG.height*0.5, 0.0));
+
+		contextCam.scroll.y = CoolUtil.fpsLerp(contextCam.scroll.y, scroll, 0.5);
 		contextCam.alpha = CoolUtil.fpsLerp(contextCam.alpha, 1, 0.25);
 	}
 
