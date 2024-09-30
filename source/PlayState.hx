@@ -54,6 +54,7 @@ class PlayState extends UIState {
 			openSubState(new UIWarningSubstate("Test", "This is a test message", [
 				{
 					label: "Alt. Choice",
+					color: 0xFF00FF00,
 					onClick: function(t) {
 						trace("Alt. Choice clicked!");
 					}
