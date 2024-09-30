@@ -47,10 +47,10 @@ class UIWarningSubstate extends SubStateExt {
 				b.onClick(this);
 				close();
 			}, 160, 30);
-			if (b.color != null) {
+			/*if (b.color != null) {
 				button.frames = Paths.getFrames("editors/ui/grayscale-button");
 				button.color = b.color;
-			}
+			}*/
 			add(button);
 		}
 
