@@ -43,7 +43,7 @@ class UIWarningSubstate extends SubStateExt {
 					continue;
 			}
 			camShaders.push(c);
-			c.addShader(blurShader);
+			c.setFilters([new ShaderFilter(blurShader)]);
 		}
 
 		camera = warnCam = new FlxCamera();
@@ -90,7 +90,7 @@ class UIWarningSubstate extends SubStateExt {
 		super.destroy();
 
 		for (e in camShaders)
-			e.removeShader(blurShader);
+			e.setFilters([]);
 
 		FlxTween.cancelTweensOf(warnCam);
 		FlxG.cameras.remove(warnCam);

@@ -28,7 +28,7 @@ class BaseShader extends ShaderCool {
 		path = fragShaderPath + vertShaderPath;
 
 		if (fragCode == null && vertCode == null)
-			trace('Shader "$name" couldn\'t be found.', ERROR);
+			trace('Shader "$name" couldn\'t be found.');
 
 		super(fragCode, vertCode, glslVersion);
 	}
