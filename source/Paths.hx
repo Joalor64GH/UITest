@@ -27,6 +27,14 @@ class Paths {
 		return getPath(null, file);
 	}
 
+	inline static public function shaderFrag(key:String) {
+		return file('shaders/$key.frag');
+	}
+
+	inline static public function shaderVert(key:String) {
+		return file('shaders/$key.vert');
+	}
+
 	inline static public function txt(key:String) {
 		return file('data/$key.txt');
 	}

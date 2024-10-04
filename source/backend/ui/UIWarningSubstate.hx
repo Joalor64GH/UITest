@@ -1,6 +1,12 @@
 package backend.ui;
 
+import backend.shaders.BaseShader;
+import openfl.filters.ShaderFilter;
+
 class UIWarningSubstate extends SubStateExt {
+	var camShaders:Array<FlxCamera> = [];
+	var blurShader:BaseShader = new BaseShader("blur");
+
 	var title:String;
 	var message:String;
 	var buttons:Array<WarningButton>;
@@ -18,6 +24,28 @@ class UIWarningSubstate extends SubStateExt {
 	}
 
 	public override function create() {
+		for (c in FlxG.cameras.list) {
+			@:privateAccess if(c._filters != null) {
+				var shouldSkip = false;
+				for (filter in c._filters) {
+					if (filter is ShaderFilter) {
+						var filter:ShaderFilter = cast filter;
+						if (filter.shader is BaseShader) {
+							var shader:BaseShader = cast filter.shader;
+							if (shader.path == blurShader.path) {
+								shouldSkip = true;
+								break;
+							}
+						}
+					}
+				}
+				if (shouldSkip)
+					continue;
+			}
+			camShaders.push(c);
+			c.addShader(blurShader);
+		}
+
 		camera = warnCam = new FlxCamera();
 		warnCam.bgColor = 0;
 		warnCam.alpha = 0;
@@ -60,6 +88,9 @@ class UIWarningSubstate extends SubStateExt {
 
 	public override function destroy() {
 		super.destroy();
+
+		for (e in camShaders)
+			e.removeShader(blurShader);
 
 		FlxTween.cancelTweensOf(warnCam);
 		FlxG.cameras.remove(warnCam);
